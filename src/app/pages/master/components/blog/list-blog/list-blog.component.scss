@@ -1,0 +1,60 @@
+.wrapper{
+  .box-header {
+      padding: 10px;
+      background-color: #5391ee;
+      color: #ffff;
+      margin-bottom: 10px;
+    }
+
+    .media {
+      display: flex;
+      gap: 20px;
+    }
+
+    .box-blogs {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .btn-dis {
+      pointer-events: none;
+      opacity: 0.5;
+    }
+
+    .box-btn {
+      cursor: pointer;
+    }
+
+    .btn-color {
+      background-color: #0d6efd;
+      color: white;
+    }
+
+    .page-item {
+      cursor: pointer;
+    }
+}
+
+.box-loading {
+  min-width: 250px;
+  margin-left: -125px;
+  color: #fff;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  right: 2%;
+  top: 3%;
+  z-index: 1000;
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+
+}
+
+.success{
+  background-color: #1dec7a;
+}
+
+.error {
+  background-color: #eb6e5d;
+}

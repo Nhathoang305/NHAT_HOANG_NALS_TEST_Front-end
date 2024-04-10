@@ -1,0 +1,50 @@
+<div class="box-popup" *ngIf="hideShowPopup" >
+  <form class="needs-validation" novalidate [formGroup]="blogDetailGroup">
+      <div class="box-body">
+        <div class="popup-header">
+          {{isEdit ? 'Edit Blog': 'Add Blog'}}
+        </div>
+        <div class="container popup-body">
+          <img *ngIf="isEdit"
+               src="{{blogDetailGroup.get('image')?.getRawValue()}}"
+               alt="">
+          <div *ngIf="!isEdit"
+               class="box-img">
+            <label for="">Image</label>
+            <input type="text"
+                   [ngClass]="{'is-invalid':blogDetailGroup.touched && blogDetailGroup.get('image')?.invalid, 'is-valid': blogDetailGroup.touched && blogDetailGroup.get('image')?.valid}"
+                   class="form-control"
+                   formControlName="image">
+                  <div class="invalid-feedback">Cannot be empty</div>
+          </div>
+          <div class="box-title">
+            <label for="">Title</label>
+            <input type="text"
+                   [ngClass]="{'is-invalid':blogDetailGroup.touched && blogDetailGroup.get('title')?.invalid, 'is-valid': blogDetailGroup.touched && blogDetailGroup.get('title')?.valid}"
+                   class="form-control"
+                   formControlName="title">
+                  <div class="invalid-feedback">Cannot be empty</div>
+          </div>
+          <div class="box-content">
+            <label for="validationTooltip01"
+                   class="form-label">Content</label>
+            <input type="text"
+                   [ngClass]="{'is-invalid':blogDetailGroup.touched && blogDetailGroup.get('content')?.invalid, 'is-valid': blogDetailGroup.touched && blogDetailGroup.get('content')?.valid}"
+                   class="form-control"
+                   id="validationTooltip01"
+                   formControlName="content">
+                  <div class="invalid-feedback">Cannot be empty</div>
+          </div>
+        </div>
+        <div class="popup-footer">
+          <button type="submit"
+                  [disabled]="blogDetailGroup.invalid"
+                  class="btn btn-primary" (click)="handleSubmit()">Save</button>
+          <button type="button"
+                  class="btn btn-secondary"
+                  (click)="closeModal()">Close</button>
+        </div>
+      </div>
+  </form>
+  <div class="box-loading" *ngIf="hideShowToast">Error</div>
+</div>

@@ -1,0 +1,83 @@
+<div class="wrapper">
+  <div class="box-header">
+    <h5>List Blog</h5>
+  </div>
+  <div class="container">
+    <form [formGroup]="blogGroup">
+      <div class="box-seach">
+        <div class="input-group mb-3">
+          <input type="text"
+                 class="form-control"
+                 placeholder="Key Search"
+                 formControlName="search">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary"
+                    type="button"
+                    (click)="handleSearch()"> <i class="bi bi-search"></i></button>
+            <button class="btn btn-outline-secondary"
+                    (click)="handleClear()"
+                    type="button"><i class="bi bi-arrow-clockwise"></i></button>
+            <button class="btn btn-outline-secondary dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false">Sort</button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item"
+                 (click)="handleSort('id')">ID</a>
+              <a class="dropdown-item"
+                 (click)="handleSort('title')">Title</a>
+              <a class="dropdown-item"
+                 (click)="handleSort('content')">Content</a>
+            </div>
+                            <button class="btn btn-outline-secondary"
+                                    (click)="handleAddBlog()"
+                                    type="button"><i class="bi bi-plus-circle"></i></button>
+          </div>
+
+        </div>
+      </div>
+      <ul class="list-unstyled box-blogs"
+          *ngFor="let control of data.controls; index as i">
+        <li class="media">
+          <img src="{{control.get('image')?.getRawValue()}}"
+               class="mr-5"
+               alt="..."
+               style="width:60px">
+          <div class="media-body">
+            <h5 class="mt-0 mb-1">{{control.get('title')?.getRawValue()}}</h5>
+            {{control.get('content')?.getRawValue()}}
+          </div>
+        </li>
+        <div class="box-btn">
+          <i class="bi bi-pencil-square" (click)="handleEditBlog(control.get('id')?.getRawValue())"></i>
+        </div>
+      </ul>
+      <nav aria-label="Page navigation example"
+           *ngIf="totalRecord>0">
+        <ul class="pagination">
+          <li class="page-item"
+              [ngClass]="{'btn-dis' : this.requestParam.page===1}"><a class="page-link"
+               (click)="handlePagination(-1)">Previous</a></li>
+          <div *ngFor="let item of totalPage; index as i">
+            <li class="page-item"><a class="page-link"
+                 [ngClass]="{'btn-color' : this.requestParam.page===i+1}"
+                 (click)="handlePagination(i+1)">{{i+1}}</a></li>
+          </div>
+          <li class="page-item"><a class="page-link"
+               [ngClass]="{'btn-dis' : this.requestParam.page ===totalPage.length}"
+               (click)="handlePagination(0)">Next</a></li>
+        </ul>
+      </nav>
+      <p *ngIf="data.controls.length <=0"
+         class="text-center font-weight-bold">
+        There is no data to display.
+      </p>
+    </form>
+  </div>
+</div>
+
+<app-add-edit-blog (isReset)="handleClearAndShowToast()"></app-add-edit-blog>
+
+<app-loading-spinner></app-loading-spinner>
+  <div class="box-loading" *ngIf="hideShowToast" [ngClass]="{'success': isSuccess, 'error': !isSuccess}">{{isSuccess? "Success": "Error" }}</div>
